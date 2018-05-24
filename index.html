@@ -13,22 +13,62 @@
 
 <body>
   <div class="container">
-    <div class="row">
+    <div class="jumbotron" style="background-image: url(./img/ufo_image.jpg); background-size: 100%">
+      <h1 class="display-3">UFOs, Are they real?</h1>
+          <p class="lead"><strong>Ever wonder where is all of the data relating to UFO sightings are stored? Most governments with UFO desks have publicly released their formerly classified documents, having convinced themselves that there was little reason to keep them confidential. 
+            </strong></p>
+          <hr class="my-4">
+          <p><strong>To view this data simply fill out the form below with the filters your desire and then press the search button. Go ahead try it.</strong></p>
+          <p class="lead">
+          </p>
+    </div>
+    <!--
+    <div class="row"></div>
       <div class="col-md-4">
         <div class="form-group">
+          <label for="datetime">Date:</label>
           <input type="text" class="form-control" id="datetime" placeholder="Date(M/D/YYYY)">
+          <label for="city">City:</label>               
           <input type="text" class="form-control" id="city" placeholder="City">
           <a id="search" class="btn btn-default">Search</a>
         </div>
       </div>
+      <div class="col-md-4">
+        <div class="form-group">
+          <input type="text" class="form-control" id="state" placeholder="State">
+          <input type="text" class="form-control" id="country" placeholder="Country">
+        </div>
+      </div>
     </div>
+    //-->
+    <div class="form-inline">
+        <div class="form-group col-md-4">
+            <label class="sr-only" for="datetime">Date</label>
+            <input type="text" class="form-control" id="datetime" placeholder="Date (M/D/YYYY)">
+            <label class="sr-only" for="shape">State</label>
+            <input type="text" class="form-control" id="shape" placeholder="Shape">
+            </div>
+        </div>
+        <div class="form-group col-md-4">
+            <label class="sr-only" for="city">City</label>
+            <input type="text" class="form-control" id="city" placeholder="City">
+            
+            <label class="sr-only" for="state">State</label>
+            <input type="text" class="form-control" id="state" placeholder="State">
+           
+            <label class="sr-only" for="country">State</label>
+            <input type="text" class="form-control" id="country" placeholder="Country">
+        </div>
+        
+        <a id="search" class="btn btn-default">Search</a>
+    </form> 
+    
     <div class="row">
       <div class="col-md-12">
         <table class="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Date/time</th>
+              <th>Datetime</th>
               <th>City</th>
               <th>State</th>
               <th>Country</th>
@@ -44,6 +84,7 @@
   </div>
   <script src="data.js" type="text/javascript"></script>
   <script src="index.js" type="text/javascript"></script>
+  <script src="moment.js" type="text/javascript"></script>
 </body>
 
 </html>

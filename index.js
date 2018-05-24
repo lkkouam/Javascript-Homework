@@ -1,7 +1,10 @@
 // Get references to the tbody element, input field and button
 var $tbody = document.querySelector("tbody");
 var $datetimeInput = document.querySelector("#datetime");
-
+var $cityInput = document.querySelector("#city");
+var $stateInput = document.querySelector("#state");
+var $countryInput = document.querySelector("#country");
+var $shapeInput = document.querySelector("#shape");
 var $searchBtn = document.querySelector("#search");
 
 // Add an event listener to the searchButton, call handleSearchButtonClick when clicked
@@ -32,14 +35,27 @@ function renderTable() {
 function handleSearchButtonClick() {
   // Format the user's search by removing leading and trailing whitespace, lowercase the string
   var filterDatetime = $datetimeInput.value.trim();
-  // var filter = {
+  var filterCity = $cityInput.value.trim();
+  var filterState = $stateInput.value.trim();
+  var filterCountry = $countryInput.value.trim();
+  var filterShape = $shapeInput.value.trim();
   
   // Set filteredDataset to an array of all data set whose "datetime" matches the filter
    filteredDataset = dataSet.filter(function(dtaset) {
      var dataDatetime = dtaset.datetime;
+     var dataCity = dtaset.city;
+     var dataState = dtaset.state;
+     var dataCountry = dtaset.country;
+     var dataShape = dtaset.shape;
 
-  //   // If true, add the dataset to the filtereddatetime, otherwise don't add it to filteredDataset
-     return dataDatetime === filterDatetime;
+  // If true, add the dataset to the filtereddatetime, otherwise don't add it to filteredDataset
+  //   return (dataDatetime === filterDatetime && dataCity === filterCity );
+  if (dataDatetime !=' '  && dataCity != ' ' && dataState != ' ' && dataCountry != ' ' && dataShape != ' '){
+    return (dataDatetime === filterDatetime && dataCity === filterCity && dataState === filterState && dataCountry === filterCountry && dataShape === filterShape);
+    }
+    //else if (dataDatetime !=' '  && dataCity != ' ' && dataState != ' ' && dataCountry != ' ' && !dataShape) {
+     // return (dataDatetime === filterDatetime && dataCity === filterCity && dataState === filterState && dataCountry === filterCountry);
+    //}
    });
  
   
