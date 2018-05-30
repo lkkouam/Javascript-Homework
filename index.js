@@ -10,6 +10,21 @@ var $searchBtn = document.querySelector("#search");
 // Add an event listener to the searchButton, call handleSearchButtonClick when clicked
 $searchBtn.addEventListener("click", handleSearchButtonClick);
 
+// Enabling the search by clicking on the button Enter rather than the Search Button
+// document.getElementById("id_of_textbox")
+//     .addEventListener("keyup", function(event) {
+//     event.preventDefault();
+//     if (event.keyCode === 13) {
+//         document.getElementById("id_of_button").click();
+//     }
+// });
+
+document.addEventListener('keypress', function (e) {
+  var key = e.which || e.keyCode;
+  if (key === 13) { // 13 is enter
+    handleSearchButtonClick(); // This is where we are calling the handleSearchButtonClick() function...
+  }
+});
 // Set filteredDataset to dataSet initially
 var filteredDataset = dataSet;
 
@@ -32,35 +47,81 @@ function renderTable() {
   }
 }
 
+
+// function pagination(){
+//   document.ready(function() { 
+//     $("table") 
+//     .tablesorter({widthFixed: true, widgets: ['zebra']}) 
+//     .tablesorterPager({container: $("#pager")}); 
+// }); 
+// }
+
 function handleSearchButtonClick() {
   // Format the user's search by removing leading and trailing whitespace, lowercase the string
-  var filterDatetime = $datetimeInput.value.trim();
-  var filterCity = $cityInput.value.trim();
-  var filterState = $stateInput.value.trim();
-  var filterCountry = $countryInput.value.trim();
-  var filterShape = $shapeInput.value.trim();
   
-  // Set filteredDataset to an array of all data set whose "datetime" matches the filter
-   filteredDataset = dataSet.filter(function(dtaset) {
-     var dataDatetime = dtaset.datetime;
-     var dataCity = dtaset.city;
-     var dataState = dtaset.state;
-     var dataCountry = dtaset.country;
-     var dataShape = dtaset.shape;
-
-  // If true, add the dataset to the filtereddatetime, otherwise don't add it to filteredDataset
-  //   return (dataDatetime === filterDatetime && dataCity === filterCity );
-  if (dataDatetime !=' '  && dataCity != ' ' && dataState != ' ' && dataCountry != ' ' && dataShape != ' '){
-    return (dataDatetime === filterDatetime && dataCity === filterCity && dataState === filterState && dataCountry === filterCountry && dataShape === filterShape);
+  var filterDatetime = $datetimeInput.value.trim().toLowerCase();
+  var filterCity = $cityInput.value.trim().toLowerCase();
+  var filterState = $stateInput.value.trim().toLowerCase();
+  var filterCountry = $countryInput.value.trim().toLowerCase();
+  var filterShape = $shapeInput.value.trim().toLowerCase();
+  
+  // Set filteredDataset to an array of all data set that matches the filter
+  filteredDataset = dataSet.filter(function(dtaset) {
+    var dataDatetime = dtaset.datetime.toLowerCase();
+    var dataCity = dtaset.city.toLowerCase();
+    var dataState = dtaset.state.toLowerCase();
+    var dataCountry = dtaset.country.toLowerCase(); 
+    var dataShape = dtaset.shape.toLowerCase();
+        
+    // If true, add the dataset to the filtereddatetime, otherwise don't add it to filteredDataset
+    //   return (dataDatetime === filterDatetime && dataCity === filterCity );
+    // if (dataDatetime !=''  && dataCity != '' && dataState != '' && dataCountry != '' && dataShape != '') {
+    if (filterDatetime !=''  && filterCity != '' && filterState != '' && filterCountry != '' && filterShape != '') {
+      
+      return (dataDatetime === filterDatetime && dataCity === filterCity && dataState === filterState && dataCountry === filterCountry && dataShape === filterShape);
+      
+    } else if (filterDatetime != '' && filterCity != '' && filterState != '' && filterCountry != '') {
+     // console.log('*******************************')
+      //console.log('in else if statmen')
+      //console.log('data row: ', dtaset)
+      //console.log('date: ', filterDatetime)
+      //console.log('city: ', filterCity)
+      //console.log('state: ', filterState)
+      //console.log('country: ', filterCountry)
+      //console.log('********************************')
+      
+      return (dataDatetime === filterDatetime && dataCity === filterCity && dataState === filterState && dataCountry === filterCountry);
+    } else if (filterDatetime != '' && filterCity != '' && filterState != '') {
+        return (dataDatetime === filterDatetime && dataCity === filterCity && dataState === filterState && dataCountry);
+    } else if (filterDatetime != '' && filterCity != '' ) {
+        return (dataDatetime === filterDatetime && dataCity === filterCity);
+    } else if (filterDatetime != '') {
+        return (dataDatetime === filterDatetime);
+    } else if (filterCity != '') {
+      return (dataCity === filterCity);
+    } else if (filterState != '') {
+      return (dataState === filterState);
+    } else if (filterCountry != '') {
+      return (dataCountry === filterCountry);
+    } else if (filterShape != '') {
+      return (dataShape === filterShape);
+    } else {
+      return(filteredDataset)
     }
-    //else if (dataDatetime !=' '  && dataCity != ' ' && dataState != ' ' && dataCountry != ' ' && !dataShape) {
-     // return (dataDatetime === filterDatetime && dataCity === filterCity && dataState === filterState && dataCountry === filterCountry);
-    //}
+
    });
- 
-  
-  renderTable();
-}
+
+   // Render all the data if the fields are empty
+   renderTable();
+   //pagination();
+
+} 
 
 // Render the table for the first time on page load
 renderTable();
+console.log('Pagination ')
+$(document).ready(function() { 
+  $("table") 
+  .tablesorter({widthFixed: true, widgets: ['zebra']}) 
+  .tablesorterPager({container: $("#pager")}); 
+}); 
